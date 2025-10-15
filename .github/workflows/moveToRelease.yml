@@ -1,0 +1,10 @@
+name: Move to release registry
+on:
+  release:
+    types: [released]
+jobs:
+  call-booster-wkf:
+    uses: RegestaItalia/.github/.github/workflows/boosterWorkflow.yml@master
+    with:
+      vars: ${{ toJson(vars) }}
+    secrets: inherit
