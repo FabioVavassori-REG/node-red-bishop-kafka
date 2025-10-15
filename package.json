@@ -1,0 +1,22 @@
+{
+  "name": "custom-kafka",
+  "version": "1.0.0",
+  "description": "Custom kafka producer/consumer nodes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ultrafab",
+  "license": "ISC",
+  "node-red": {
+    "nodes": {
+      "kafka-broker": "src/broker.js",
+      "kafka-producer": "src/producer.js",
+      "kafka-consumer": "src/consumer.js"
+    }
+  },
+  "dependencies": {
+    "@confluentinc/kafka-javascript": "^1.4.1",
+    "kafkajs": "^2.2.4"
+  }
+}

@@ -1,0 +1,200 @@
+<script type="text/html" data-help-name="bishop-kafka-producer">
+  <p>Definition of bishop-kafka-producer</p>
+</script>
+
+<script type="text/html" data-template-name="bishop-kafka-producer">
+  <style>
+    .node-red-kafka-config .flex-fill {
+      flex: 1 0 auto;
+    }
+    .node-red-kafka-config .fa {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      text-align: center;
+    }
+    .node-red-kafka-config label i.fa:first-child {
+      margin-right: 4px;
+    }
+    .node-red-kafka-config .checkbox-aligned {
+      display: inline-block;
+      width: auto;
+      vertical-align: top;
+    }
+    .node-red-kafka-config .inner-form {
+      margin-left: 12px;
+      padding-left: 12px;
+      border-left: 1px solid #dfdfdf;
+    }
+    .red-ui-editor .node-red-kafka-config .form-row {
+      display: flex;
+    }
+    .red-ui-editor .node-red-kafka-config .form-row label {
+      width: 160px;
+    }
+    .red-ui-editor .node-red-kafka-config .form-row input,
+    .red-ui-editor .node-red-kafka-config .form-row .red-ui-editableList,
+    .red-ui-editor .node-red-kafka-config .form-row select {
+      width: auto;
+      flex: 1 1 auto;
+    }
+    .red-ui-editor .node-red-kafka-config .form-row input[type='checkbox'] {
+      flex: 0.1 1 auto;
+    }
+    .red-ui-editor .node-red-kafka-config .message-header {
+      display: flex;
+    }
+    .red-ui-editor .node-red-kafka-config .message-header > * {
+      width: auto;
+      flex: 1 1 auto;
+    }
+  </style>
+
+  <div class="node-red-kafka-config">
+    <div class="form-row">
+      <label for="node-input-name"><i class="fa fa-tag"></i>Name</label>
+      <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+    <div class="form-row">
+      <label for="node-input-broker"><i class="fa fa-plug"></i>Broker</label>
+      <input id="node-input-broker" />
+    </div>
+    <div class="form-row">
+      <label for="node-input-topic"><i class="fa fa-link"></i>Topic</label>
+      <input type="text" id="node-input-topic" placeholder="Topic" />
+    </div>
+    <div class="form-row">
+      <label for="node-input-keytype" class="checkbox-aligned"><i class="fa fa-braille"></i>Serialize key as</label>
+      <select id="node-input-keytype">
+        <option value="buffer">Buffer</option>
+        <option value="json">JSON</option>
+        <option value="string">String</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label for="node-input-valuetype" class="checkbox-aligned"><i class="fa fa-braille"></i>Serialize value as</label>
+      <select id="node-input-valuetype">
+        <option value="buffer">Buffer</option>
+        <option value="json">JSON</option>
+        <option value="string">String</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <label for="node-input-advancedoptions" class="checkbox-aligned"><i class="fa fa-cogs"></i>Advanced Options</label>
+      <input id="node-input-advancedoptions" type="checkbox" />
+    </div>
+    <div id="node-advancedoptions" class="inner-form">
+      <div class="form-row">
+        <label for="node-input-acknowledge"><i class="fa fa-check-square "></i>Acks</label>
+        <select id="node-input-acknowledge">
+          <option value="all">ALL</option>
+          <option value="none">NONE</option>
+          <option value="leader">LEADER</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label for="node-input-partition"><i class="fa fa-hdd-o"></i>Partition</label>
+        <input id="node-input-partition" type="number" />
+      </div>
+      <div class="form-row">
+        <label for="node-input-headers"><i class="fa fa-header"></i>Headers</label>
+        <ol id="node-input-headers" style="min-height:120px;"></ol>
+      </div>
+      <div class="form-row">
+        <label for="node-input-key"><i class="fa fa-tag"></i>Key</label>
+        <input id="node-input-key" type="text" />
+      </div>
+      <div class="form-row">
+        <label for="node-input-responsetimeout"><i class="fa fa-clock-o"></i>Response Timeout</label>
+        <input id="node-input-responsetimeout" type="number" />
+      </div>
+      <div class="form-row">
+        <label for="node-input-transactiontimeout"><i class="fa fa-clock-o"></i>Transaction Timeout</label>
+        <input id="node-input-transactiontimeout" type="number" />
+      </div>
+      <div class="form-row">
+        <label for="node-input-metadatamaxage"><i class="fa fa-clock-o"></i>Metadata Max Age</label>
+        <input id="node-input-metadatamaxage" type="number" />
+      </div>
+    </div>
+  </div>
+</script>
+
+<script type="text/javascript">
+  RED.nodes.registerType('bishop-kafka-producer', {
+    category: 'network',
+    defaults: {
+      name: { value: '', required: false },
+      broker: { value: '', required: true, type: 'bishop-kafka-broker' },
+      topic: { value: '', required: false },
+      keytype: { value: 'buffer', required: true },
+      valuetype: { value: 'buffer', required: true },
+      advancedoptions: { value: false, required: true },
+      acknowledge: { value: 'all', required: true },
+      partition: { value: null, required: false },
+      headeritems: { value: {}, required: false },
+      key: { value: null, required: false },
+      responsetimeout: { value: 30000, required: true },
+      transactiontimeout: { value: 60000, required: true },
+      metadatamaxage: { value: 300000, required: true },
+    },
+    inputs: 1,
+    inputLabels: '',
+    outputs: 2,
+    outputLabels: ['success', 'failed'],
+    color: '#FF4040',
+    icon: 'icons/kafka.svg',
+    align: 'right',
+    label: function () {
+      return this.name || 'bishop-kafka-producer';
+    },
+    paletteLabel: function () {
+      return 'Bishop Kafka Producer';
+    },
+    labelStyle: function () {
+      return 'node_label_italic';
+    },
+    oneditprepare: function () {
+      function checkAdvancedOptions(checked) {
+        if (checked) {
+          $('#node-advancedoptions').show();
+        } else {
+          $('#node-advancedoptions').hide();
+        }
+      }
+
+      $('#node-input-headers').editableList({
+        addButton: 'add',
+        removable: true,
+        addItem: function (row, index, data) {
+          let key = data[0] || '';
+          let value = data[1] || '';
+
+          var root = $('<div/>', { cflass: 'message-header' }).appendTo(row);
+
+          $('<input/>', { class: 'message-header-key', type: 'text' }).appendTo(root).val(key);
+          $('<input/>', { class: 'message-header-value', type: 'text' }).appendTo(root).val(value);
+        },
+      });
+
+      for (const entry of Object.entries(this.headeritems)) {
+        $('#node-input-headers').editableList('addItem', entry);
+      }
+
+      checkAdvancedOptions($('#node-input-advancedoptions').val());
+      $('#node-input-advancedoptions').change(function () {
+        checkAdvancedOptions($(this).is(':checked'));
+      });
+    },
+    oneditsave: function () {
+      var items = $('#node-input-headers').editableList('items');
+      var node = this;
+
+      this.headeritems = {};
+      items.each(function (i, val) {
+        node.headeritems[val.find('.node-input-header-key').val()] = val.find('.node-input-header-value').val();
+      });
+    },
+  });
+</script>
