@@ -92,11 +92,11 @@ module.exports = function (RED) {
 						}
 					}
 
-					node.send(msg);
+					node.send([msg, null]);
 					node.status({ fill: 'green', shape: 'dot', text: 'Message received' });
 				} catch (ex) {
-					node.onError('Kafka Consumer Error (message processing)', ex);
 					node.status({ fill: 'red', shape: 'ring', text: 'Error' });
+					send([null, { ...msg, error: ex }]);
 				}
 			},
 		};
