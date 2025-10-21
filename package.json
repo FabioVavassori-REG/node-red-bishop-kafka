@@ -16,7 +16,6 @@
     }
   },
   "dependencies": {
-    "@confluentinc/kafka-javascript": "^1.4.1",
-    "kafkajs": "^2.2.4"
+    "@confluentinc/kafka-javascript": "^1.4.1"
   }
 }
