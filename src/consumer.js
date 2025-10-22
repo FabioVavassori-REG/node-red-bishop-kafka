@@ -186,7 +186,7 @@ module.exports = function (RED) {
 		this.onCommit = function(msg, done) {
 			const partition = msg.payload.partition;
 			const offset = msg.payload.offset;
-			const topic = msg.payload.topic || subscribeOptions.topic;
+			const topic = subscribeOptions.topic;
 
 			if (isNaN(partition)) {
 				node.error("Commit error: invalid partition");

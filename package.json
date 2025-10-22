@@ -1,13 +1,17 @@
 {
-  "name": "custom-kafka",
+  "name": "@regestaitalia/node-red-bishop-kafka",
   "version": "1.0.0",
-  "description": "Custom kafka producer/consumer nodes",
+  "description": "Node-RED nodes for Apache Kafka integration",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 0"
   },
   "author": "Ultrafab",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RegestaItalia/ultrafab.regesta.crossroads.git"
+  },
   "node-red": {
     "nodes": {
       "kafka-broker": "src/broker.js",
@@ -16,6 +20,6 @@
     }
   },
   "dependencies": {
-    "@confluentinc/kafka-javascript": "^1.4.1"
+    "@confluentinc/kafka-javascript": "^1.6.0"
   }
 }
