@@ -1,6 +1,12 @@
 # node-red-bishop-kafka
 
-Node-RED nodes for Apache Kafka integration. This library depends on [confluent-kafka-javascrip](https://github.com/confluentinc/confluent-kafka-javascript)
+## Installation
+
+```
+npm i @regestaitalia/node-red-bishop-kafka
+```
+
+This package contains Node-RED nodes for Apache Kafka integration and it depends on [confluent-kafka-javascrip](https://github.com/confluentinc/confluent-kafka-javascript)
 
 It consists in 3 nodes:
 - Broker (config node)

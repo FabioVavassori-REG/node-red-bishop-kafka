@@ -1,9 +1,0 @@
-name: Create pre-release
-on:
-  workflow_dispatch:
-jobs:
-  call-booster-wkf:
-    uses: RegestaItalia/.github/.github/workflows/boosterWorkflow.yml@master
-    with:
-      vars: ${{ toJson(vars) }}
-    secrets: inherit
