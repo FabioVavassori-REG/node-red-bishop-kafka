@@ -12,6 +12,9 @@
     "type": "git",
     "url": "git+https://github.com/RegestaItalia/ultrafab.regesta.crossroads.git"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "node-red": {
     "nodes": {
       "kafka-broker": "src/broker.js",

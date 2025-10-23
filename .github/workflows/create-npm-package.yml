@@ -1,5 +1,5 @@
 name: Publish NPM Package
-run-name: Publish NPM Package for ${{ inputs.base_folder }}
+run-name: Publish NPM Package for node-red-bishop-kafka
 
 on:
   workflow_dispatch:
@@ -13,13 +13,13 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
       - run: npm i
       - run: npm ci
       - run: npm test
     
   publish-gpr:
-    name: Publish GitHub Package ${{ inputs.base_folder }}
+    name: Publish GitHub Package node-red-bishop-kafka
     needs: build
     runs-on: ubuntu-latest
     permissions:
@@ -30,7 +30,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           registry-url: https://npm.pkg.github.com/
           scope: '@regestaitalia'
       - name: Read product version
